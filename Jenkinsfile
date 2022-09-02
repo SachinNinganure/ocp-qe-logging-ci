@@ -54,7 +54,6 @@ pipeline {
                 install = build job:"ocp-common/Flexy-install", parameters: [string(name: 'INSTANCE_NAME_PREFIX', value: "${params.INSTANCE_NAME_PREFIX}"),
                   string(name: 'VARIABLES_LOCATION', value: "${params.VARIABLES_LOCATION}"),
                   text(name: 'LAUNCHER_VARS', value: "installer_payload_image: ${params.INSTALLER_PAYLOAD_IMAGE}\nuse_internal_opsrc: \"yes\"\ninstall_logging: \"yes\""),
-		  #text(name: 'LAUNCHER_VARS', value: "installer_payload_image: ${params.INSTALLER_PAYLOAD_IMAGE}"),
                   text(name: 'BUSHSLICER_CONFIG', value: '''services:
   AWS-CI:
     config_opts:
