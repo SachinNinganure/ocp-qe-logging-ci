@@ -20,10 +20,6 @@ pipeline {
         string(name: 'ELS_INSTANCE_TYPE', defaultValue: 'm6i.2xlarge', description: '')
         string(name: 'COLLECTOR_INSTANCE_TYPE', defaultValue: 'm6i.xlarge', description: '')
         string(name: 'NUM_LOGTEST_NODES', defaultValue: '5', description: '')
-        #todelete booleanParam(name: 'DEPLOY_LOGGING', defaultValue: true, description: 'Deploy cluster loging operator and elasticsearch operator')
-        #todeletestring(name: 'CLO_BRANCH', defaultValue: 'release-5.4', description: 'Branch to deploy Cluster Logging Operator and Elasticsearch Operator from. See https://github.com/openshift/cluster-logging-operator')
-        #todelete booleanParam(name: 'CREATE_CLO_INSTANCE', defaultValue: true, description: 'Create CLO instance with ELS 4 cpu, 16G RAM, and 200G gp2 ssd storage.')
-        #todelete choice(name: 'LOG_COLLECTOR', choices: ['fluentd', 'vector'], description: 'Log collector to use.')
         string(name: 'SLEEP_DELAY', defaultValue: "10m", description: 'Time to sleep after previous steps to wait for nodes/CLO to be ready. Leave empty to skip')
         // Workload
         choice(name: 'TEST_PRESET', choices: ['NONE', 'SINGLE_POD_2K', 'SINGLE_POD_2500', 'SINGLE_NODE_MULTI_POD_2500', 'MULTI_NODE_10K'], description: 'Preset test cases. Overrides NUM_PROJECTS, RATE, and NUM_LINES')
@@ -87,10 +83,6 @@ pipeline {
                 string(name: 'ELS_INSTANCE_TYPE', value: "${params.ELS_INSTANCE_TYPE}"),
                 string(name: 'COLLECTOR_INSTANCE_TYPE', value: "${params.COLLECTOR_INSTANCE_TYPE}"),
                 string(name: 'NUM_LOGTEST_NODES', value: "${params.NUM_LOGTEST_NODES}"),
-                #ddbooleanParam(name: 'DEPLOY_LOGGING', value: "${params.DEPLOY_LOGGING}"),
-                #string(name: 'CLO_BRANCH', value: "${params.CLO_BRANCH}"),
-                #booleanParam(name: 'CREATE_CLO_INSTANCE', value: "${params.CREATE_CLO_INSTANCE}"),
-                #string(name: 'LOG_COLLECTOR', value: "${params.LOG_COLLECTOR}"),
                 string(name: 'SLEEP_DELAY', value: "${params.SLEEP_DELAY}"),
                 text(name: 'ENV_VARS', value: "${params.ENV_VARS}"),
                 string(name: 'JENKINS_AGENT_LABEL', value: "${params.JENKINS_AGENT_LABEL}")
