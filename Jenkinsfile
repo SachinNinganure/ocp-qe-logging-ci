@@ -100,6 +100,8 @@ pipeline {
                 booleanParam(name: 'CLEANUP_LOGGING', value: 'false'),
                 text(name: 'ENV_VARS', value: "${params.ENV_VARS}"),
                 string(name: 'JENKINS_AGENT_LABEL', value: "${params.JENKINS_AGENT_LABEL}")
+	        string(name: 'WORKLOADS_REPO', defaultValue:'https://github.com/SachinNinganure/workloads', description:'pointed to new repo for Vect2Loki.')
+	        string(name: 'WORKLOADS_REPO_BRANCH', defaultValue:'logtest_V2L', description:'You can change this to point to a branch on your fork if needed.')
               ]
             }
           }
