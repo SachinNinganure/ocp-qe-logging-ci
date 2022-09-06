@@ -77,7 +77,7 @@ pipeline {
           }
           steps {
             script {
-              build job: 'scale-ci/ematysek-e2e-benchmark/logging-prep-cluster', parameters: [string(name: 'BUILD_NUMBER', value: "${buildno}"),
+              build job: 'scale-ci/ematysek-e2e-benchmark/prep-cluster-V2L', parameters: [string(name: 'BUILD_NUMBER', value: "${buildno}"),
                 booleanParam(name: 'SCALE_MACHINESETS', value: "${params.SCALE_MACHINESETS}"),
                 string(name: 'ELS_INSTANCE_TYPE', value: "${params.ELS_INSTANCE_TYPE}"),
                 string(name: 'COLLECTOR_INSTANCE_TYPE', value: "${params.COLLECTOR_INSTANCE_TYPE}"),
