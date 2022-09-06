@@ -22,7 +22,7 @@ pipeline {
         string(name: 'SLEEP_DELAY', defaultValue: '10m', description: 'Time to sleep after previous steps to wait for nodes/CLO to be ready. Leave empty to skip')
         string(name: 'JENKINS_AGENT_LABEL',defaultValue:'oc49 || oc48 || oc47')
         string(name: 'LOGGING_HELPER_REPO', defaultValue:'https://github.com/SachinNinganure/openshift-logtest-helper', description:'You can change this to point to your fork if needed.')
-        string(name: 'LOGGING_HELPER_REPO_BRANCH', defaultValue:'master', description:'You can change this to point to a branch on your fork if needed.')
+        string(name: 'LOGGING_HELPER_REPO_BRANCH', defaultValue:'sn-forLokistack', description:'You can change this to point to a branch on your fork if needed.')
         text(name: 'ENV_VARS', defaultValue: '', description:'''<p>
                Enter list of additional (optional) Env Vars you'd want to pass to the script, one pair on each line. <br>
                e.g.<br>
@@ -115,7 +115,7 @@ pipeline {
             }
           }
         }
-        stage('Deploy Logging/Elasticsearch Operators'){
+        stage('Deploy Lokistack and Cluster logging'){
           when {
             environment name: 'DEPLOY_LOGGING', value: 'true'
           }
@@ -130,34 +130,7 @@ pipeline {
               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
               ls -la
               cd openshift-logtest-helper
-              ./deploy_logging.sh "$CLO_BRANCH"
-              '''
-            }
-          }
-        }
-        stage('Create CLO Instance'){
-          when {
-            environment name: 'CREATE_CLO_INSTANCE', value: 'true'
-          }
-          steps{
-            ansiColor('xterm') {
-              sh label: '', script: '''
-              # Get ENV VARS Supplied by the user to this job and store in .env_override
-              echo "$ENV_VARS" > .env_override
-              # Export those env vars so they could be used by CI Job
-              set -a && source .env_override && set +a
-              mkdir -p ~/.kube
-              cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
-              ls -la
-              cd openshift-logtest-helper
-              if [ -e templates/ol-2xlarge-$LOG_COLLECTOR.yaml ]; then
-                oc create -f templates/ol-2xlarge-$LOG_COLLECTOR.yaml
-                echo "TODO: Sleep until elasticsearch is ready"
-                oc get pods -n openshift-logging
-              else
-                echo "Template not found"
-                exit 1
-              fi
+              ./deploy_logging.sh 
               '''
             }
           }
