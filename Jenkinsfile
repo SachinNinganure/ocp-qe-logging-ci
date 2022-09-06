@@ -92,7 +92,7 @@ pipeline {
         stage('Run Workload'){
           steps {
             script {
-              build job: 'scale-ci/ematysek-e2e-benchmark/logging', parameters: [string(name: 'BUILD_NUMBER', value: "${buildno}"),
+              build job: 'scale-ci/ematysek-e2e-benchmark/V2L_Logging', parameters: [string(name: 'BUILD_NUMBER', value: "${buildno}"),
                 string(name: 'TEST_PRESET', value: "${params.TEST_PRESET}"),
                 string(name: 'PROJECT_BASENAME', value: "${params.PROJECT_BASENAME}"),
                 string(name: 'LABEL_NODES_INSTANCETYPE', value: "${params.LABEL_NODES_INSTANCETYPE}"),
@@ -100,8 +100,6 @@ pipeline {
                 booleanParam(name: 'CLEANUP_LOGGING', value: 'false'),
                 text(name: 'ENV_VARS', value: "${params.ENV_VARS}"),
                 string(name: 'JENKINS_AGENT_LABEL', value: "${params.JENKINS_AGENT_LABEL}")
-	        string(name: 'WORKLOADS_REPO', defaultValue:'https://github.com/SachinNinganure/workloads', description:'pointed to new repo for Vect2Loki.')
-	        string(name: 'WORKLOADS_REPO_BRANCH', defaultValue:'logtest_V2L', description:'You can change this to point to a branch on your fork if needed.')
               ]
             }
           }
