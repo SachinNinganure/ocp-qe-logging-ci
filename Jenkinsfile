@@ -11,7 +11,7 @@ pipeline {
 
   parameters {
         string(name: 'BUILD_NUMBER', defaultValue: '', description: 'Build number of job that has installed the cluster.')
-        string(name: 'JENKINS_AGENT_LABEL',defaultValue:'oc49 || oc48 || oc47')
+        string(name: 'JENKINS_AGENT_LABEL',defaultValue:'oc414 || oc415 || oc416')
         choice(name: 'TEST_PRESET', choices: ['NONE', 'SINGLE_POD_2K', 'SINGLE_POD_2500', 'SINGLE_NODE_MULTI_POD_2500', 'MULTI_NODE_10K'], description: 'Preset test cases. Overrides NUM_PROJECTS, RATE, and NUM_LINES')
         string(name: 'NUM_PROJECTS', defaultValue:'1', description:'Number of logtest projects to create')
         string(name: 'RATE', defaultValue:'120000', description:'Number of logs to generate per minute per project. Default: 2k/s')
